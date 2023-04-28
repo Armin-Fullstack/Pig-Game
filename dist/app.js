@@ -11,7 +11,8 @@ const rollDice = () => {
     // 1. Generate randome dice roll
     const dice = Math.trunc(Math.random() * 6) + 1;
     // 2. display dice roll
-    console.log(dice);
+    diceEl.classList.remove("hidden");
+    diceEl.src = `Images/dice-${dice}.png`;
     // 3. if it is 1 then change the player else add dice roll
 };
 btnRoll.addEventListener("click", rollDice);
