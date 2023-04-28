@@ -1,12 +1,14 @@
+
 // selecting elements
 const diceEl = document.querySelector(".dice") ! as HTMLImageElement
 const btnNew = document.querySelector(".btn--new") ! as HTMLButtonElement
 const btnRoll = document.querySelector(".btn--roll") ! as HTMLButtonElement
 const btnHold = document.querySelector(".btn--hold") ! as HTMLButtonElement
+const currentScoreElPlayer0 = document.querySelector("#current--0") ! as HTMLParagraphElement
 
 // starting conditions
 diceEl.classList.add("hidden")
-
+let currentScore = 0;
 // roll dice functionality 
 const rollDice = ()  => {
   // 1. Generate randome dice roll
@@ -15,6 +17,12 @@ const rollDice = ()  => {
   diceEl.classList.remove("hidden")
   diceEl.src = `Images/dice-${dice}.png`
   // 3. if it is 1 then change the player else add dice roll
+  if(dice !== 1) {
+    currentScore += dice;
+    currentScoreElPlayer0.textContent = String(currentScore)
+  } else {
+    // change the player
+  }
 }
 
 
