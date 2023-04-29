@@ -18,7 +18,7 @@ const switchPlayer = () => {
     player0.classList.toggle("player--active");
     player1.classList.toggle("player--active");
 };
-// roll dice functionality 
+// roll dice functionality
 const rollDice = () => {
     // 1. Generate randome dice roll
     const dice = Math.trunc(Math.random() * 6) + 1;
@@ -40,8 +40,14 @@ const holdScore = () => {
     totalScore[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent = String(totalScore[activePlayer]);
     // 2. if >= 100 finish game
-    // 3. change the active player
-    switchPlayer();
+    if (totalScore[activePlayer] >= 20) {
+        document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
+        document.querySelector(`.player--${activePlayer}`).classList.remove("player--active");
+    }
+    else {
+        // 3. change the active player
+        switchPlayer();
+    }
 };
 btnRoll.addEventListener("click", rollDice);
 btnHold.addEventListener("click", holdScore);
