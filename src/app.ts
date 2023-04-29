@@ -10,8 +10,18 @@ const player1 = document.querySelector(".player--1") ! as HTMLTableSectionElemen
 // starting conditions
 diceEl.classList.add("hidden")
 let currentScore = 0;
-let totalScore = 0;
+let totalScore = [0 , 0];
 let activePlayer = 0;
+
+const switchPlayer = () : void => {
+  (document.getElementById(`current--${activePlayer}`) ! as HTMLParagraphElement).textContent = String(0)
+    currentScore = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    player0.classList.toggle("player--active")
+    player1.classList.toggle("player--active")
+}
+
+
 // roll dice functionality 
 const rollDice = () : void  => {
   // 1. Generate randome dice roll
@@ -25,20 +35,17 @@ const rollDice = () : void  => {
     (document.getElementById(`current--${activePlayer}`) ! as HTMLParagraphElement).textContent = String(currentScore)
   } else {
     // change the active player
-    (document.getElementById(`current--${activePlayer}`) ! as HTMLParagraphElement).textContent = String(0)
-    currentScore = 0;
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    player0.classList.toggle("player--active")
-    player1.classList.toggle("player--active")
+    switchPlayer()
   }
 }
 const holdScore = () : void => {
   // 1. add current score to the active player's score
-  totalScore += currentScore;
-  (document.getElementById(`score--${activePlayer}`)! as HTMLParagraphElement).textContent = String(totalScore)
+  totalScore[activePlayer] += currentScore;
+  (document.getElementById(`score--${activePlayer}`)! as HTMLParagraphElement).textContent = String(totalScore[activePlayer])
   // 2. if >= 100 finish game
-
+g
   // 3. change the active player
+  switchPlayer()
 }
 
 btnRoll.addEventListener("click" , rollDice)
