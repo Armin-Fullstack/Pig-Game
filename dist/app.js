@@ -9,6 +9,7 @@ const player1 = document.querySelector(".player--1");
 // starting conditions
 diceEl.classList.add("hidden");
 let currentScore = 0;
+let totalScore = 0;
 let activePlayer = 0;
 // roll dice functionality 
 const rollDice = () => {
@@ -23,7 +24,7 @@ const rollDice = () => {
         document.getElementById(`current--${activePlayer}`).textContent = String(currentScore);
     }
     else {
-        // change the player
+        // change the active player
         document.getElementById(`current--${activePlayer}`).textContent = String(0);
         currentScore = 0;
         activePlayer = activePlayer === 0 ? 1 : 0;
@@ -31,4 +32,12 @@ const rollDice = () => {
         player1.classList.toggle("player--active");
     }
 };
+const holdScore = () => {
+    // 1. add current score to the active player's score
+    totalScore += currentScore;
+    document.getElementById(`score--${activePlayer}`).textContent = String(totalScore);
+    // 2. if >= 100 finish game
+    // 3. change the active player
+};
 btnRoll.addEventListener("click", rollDice);
+btnHold.addEventListener("click", holdScore);
