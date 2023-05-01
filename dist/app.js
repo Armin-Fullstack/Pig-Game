@@ -6,12 +6,15 @@ const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 const player0 = document.querySelector(".player--0");
 const player1 = document.querySelector(".player--1");
+const score0 = document.getElementById("score--0");
+const score1 = document.getElementById("score--1");
+const currentScore0El = document.getElementById("current--0");
+const currentScore1El = document.getElementById("current--1");
 // starting conditions
-diceEl.classList.add("hidden");
-let currentScore = 0;
-let totalScore = [0, 0];
-let activePlayer = 0;
-let playing = true;
+let currentScore;
+let totalScore;
+let activePlayer;
+let playing;
 const switchPlayer = () => {
     document.getElementById(`current--${activePlayer}`).textContent = String(0);
     currentScore = 0;
@@ -56,5 +59,25 @@ const holdScore = () => {
         }
     }
 };
+const resetGame = () => {
+    currentScore = 0;
+    totalScore = [0, 0];
+    activePlayer = 0;
+    playing = true;
+    diceEl.classList.add("hidden");
+    // 1. remove player win class
+    player0.classList.remove("player--winner");
+    player1.classList.remove("player--winner");
+    player0.classList.add("player--active");
+    player1.classList.remove("player--active");
+    // 3. reset total score
+    score0.textContent = String(0);
+    score1.textContent = String(0);
+    // 4. reset currentscore
+    currentScore0El.textContent = String(0);
+    currentScore1El.textContent = String(0);
+};
 btnRoll.addEventListener("click", rollDice);
 btnHold.addEventListener("click", holdScore);
+btnNew.addEventListener("click", resetGame);
+document.addEventListener("DOMContentLoaded", resetGame);

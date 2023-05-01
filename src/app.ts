@@ -9,13 +9,20 @@ const player0 = document.querySelector(
 const player1 = document.querySelector(
   ".player--1"
 )! as HTMLTableSectionElement;
+const score0 = document.getElementById("score--0")! as HTMLParagraphElement;
+const score1 = document.getElementById("score--1")! as HTMLParagraphElement;
+const currentScore0El = document.getElementById(
+  "current--0"
+)! as HTMLParagraphElement;
+const currentScore1El = document.getElementById(
+  "current--1"
+)! as HTMLParagraphElement;
 
 // starting conditions
-diceEl.classList.add("hidden");
-let currentScore = 0;
-let totalScore = [0, 0];
-let activePlayer = 0;
-let playing = true;
+let currentScore: number;
+let totalScore: number[];
+let activePlayer: number;
+let playing: boolean;
 
 const switchPlayer = (): void => {
   (
@@ -59,7 +66,7 @@ const holdScore = (): void => {
     // 2. if >= 100 finish game
     if (totalScore[activePlayer] >= 20) {
       playing = false;
-    diceEl.classList.add("hidden");
+      diceEl.classList.add("hidden");
       (
         document.querySelector(
           `.player--${activePlayer}`
@@ -76,6 +83,26 @@ const holdScore = (): void => {
     }
   }
 };
+const resetGame = (): void => {
+  currentScore = 0;
+  totalScore = [0, 0];
+  activePlayer = 0;
+  playing = true;
+  diceEl.classList.add("hidden");
+  // 1. remove player win class
+  player0.classList.remove("player--winner");
+  player1.classList.remove("player--winner");
+  player0.classList.add("player--active");
+  player1.classList.remove("player--active");
+  // 3. reset total score
+  score0.textContent = String(0);
+  score1.textContent = String(0);
+  // 4. reset currentscore
+  currentScore0El.textContent = String(0);
+  currentScore1El.textContent = String(0);
+};
 
 btnRoll.addEventListener("click", rollDice);
 btnHold.addEventListener("click", holdScore);
+btnNew.addEventListener("click", resetGame);
+document.addEventListener("DOMContentLoaded" , resetGame)
